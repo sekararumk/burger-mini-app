@@ -1,25 +1,42 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import BurgerContext from '../../Contex/BurgerContex'
 
 import AddButton from './AddButton'
+import MapItem from './MapItem'
 import style from './controller.module.css'
 
-const Controller = (props) => {
+const Controller = () => {
+
+    const ctx = useContext(BurgerContext)
+
     return (
         <>
             <div className={style.ingredients_selector}>
                 <h5>Add Ingredients</h5>
                 <div>
-                    <AddButton label="Patty" clickHandler={() => props.addIngredientsHandler('patty')} />
-                    <AddButton label="Lettuce" clickHandler={() => props.addIngredientsHandler('lettuce')} />
-                    <AddButton label="Tomato" clickHandler={() => props.addIngredientsHandler('tomato')} />
-                    <AddButton label="Cheese" clickHandler={() => props.addIngredientsHandler('cheese')} />
-                    <AddButton label="Bun" clickHandler={() => props.addIngredientsHandler('bun')} />
+                    <AddButton label="Patty" clickHandler={() => ctx.addIngredientsHandler('patty')} />
+                    <AddButton label="Lettuce" clickHandler={() => ctx.addIngredientsHandler('lettuce')} />
+                    <AddButton label="Tomato" clickHandler={() => ctx.addIngredientsHandler('tomato')} />
+                    <AddButton label="Cheese" clickHandler={() => ctx.addIngredientsHandler('cheese')} />
+                    <AddButton label="Bun" clickHandler={() => ctx.addIngredientsHandler('bun')} />
                 </div>
             </div>
             <div className={style.ingredients_map}>
-                {props.ingredients.map ( (item,index) => {
+                {/* Loop untuk membuat list 'ingredients sesuai dengan urutan pada array'*/}
+                {ctx.ingredients.map ( (item,index) => {
                     return (
-                        <div key={index}>{item}</div>
+                        <>
+                            {/* Me-render MapItem untuk setiap item dari 'ingredients' */}
+                            <MapItem 
+                                label={item}
+                                key={index}
+                                removeHandler={() => ctx.removeIngredientsHandler(index)}
+                                upHandler={() => ctx.moveUpIngredientsHandler(index)}
+                                downHandler={() => ctx.moveDownIngredientsHandler(index)}
+                                firstItem={ index === 0 }
+                                lastItem={index === ctx.ingredients.length -1 }
+                            />
+                        </>
                     )
                 })}
             </div>

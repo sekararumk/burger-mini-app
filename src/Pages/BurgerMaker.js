@@ -1,5 +1,4 @@
-import React, {useState} from "react"
-
+import React from "react"
 import Burger from '../Components/Burger/Burger'
 import Controller from '../Components/Burger/Controller'
 
@@ -7,26 +6,20 @@ import style from './burgerMaker.module.css'
 
 const BurgerMaker = () => {
 
-    const [ingredients,setIngredients] = useState([])
-
-    const addIngredientsHandler = (ingredients) => {
-        setIngredients( prevState => {
-            const newState = [ingredients, ...prevState]
-            return newState
-        })
-
-    }
-
+    // Render DOM
     return (
         <div className={style.burgermaker_container}>
             <div className={style.controller}>
-                <Controller  ingredients={ingredients} addIngredientsHandler={addIngredientsHandler}/>
+                {/* Controller component dengan props state 'ingredients' & handles 'addIngredientsHandler', 'removeIngredientsHandler', 'moveDownIngredientsHandler', 'moveUpIngredientsHandler' */}
+                <Controller />
             </div>
             <div className={style.burger_display}>
-                <Burger ingredients={ingredients}/>
+                {/* Burger component dengan props state 'ingredients'*/}
+                <Burger />
             </div>
         </div>
     )
-}
+
+    }
 
 export default BurgerMaker
